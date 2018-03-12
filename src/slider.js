@@ -9,7 +9,8 @@ class Sliders extends React.Component{
   constructor (props, context) {
     super(props, context)
     this.state = {
-      value: 0
+      value: 0,
+      showAmountAlert: false
     }
   }
   static defaultProps = {sohag: 'hello'}
@@ -33,12 +34,15 @@ class Sliders extends React.Component{
   render () {
     const { value } = this.state
     const def = this.props.sohag
+    
     return (
       <span>
         <div className="box has-text-centered">
           Simple React js Project Using Redux and Bulma css
         </div>
-        <div className="box has-text-centered">
+        <div className="columns">
+          <div className="column is-6 is-offset-3">
+          <div className="box">
           <div className="field">
             <label className="label">Select Amount</label>
             <div className="control">
@@ -57,6 +61,9 @@ class Sliders extends React.Component{
           <Dropdown sliderValue={this.props.slidedVal}/>
         </div>
         </div>
+          </div>
+        </div>
+        
       </span>
     )
   }
