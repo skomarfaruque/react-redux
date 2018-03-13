@@ -1,5 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Slide from './components/slider';
-ReactDOM.render(<Slide />, document.getElementById('spring-it'));
+import Slider from './components/Slider';
+ReactDOM.render(<Slider />, document.getElementById('spring-it'));

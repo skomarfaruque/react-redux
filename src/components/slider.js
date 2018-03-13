@@ -1,65 +1,53 @@
 import React from 'react';
-import Slider from 'react-rangeslider'
-import 'react-rangeslider/lib/index.css'
-import { bindActionCreators } from 'redux'
-import withRedux from 'next-redux-wrapper'
-import Dropdown from './dropdown'
-import {initStore, addSliderValue } from '../stores'
+import Slider from 'react-rangeslider';
+import 'react-rangeslider/lib/index.css';
+import { bindActionCreators } from 'redux';
+import withRedux from 'next-redux-wrapper';
+import Interest from './Interest';
+import {initStore, addSliderValue } from '../stores';
 class Sliders extends React.Component{
   constructor (props, context) {
     super(props, context)
     this.state = {
       value: 0,
-      showAmountAlert: false,
       interestVal: 0,
       result: 0,
       alertMsgAmount: false,
-      alertMsgInterest: false,
+      alertMsgInterest: false
     }
-  }
-
-  handleChangeStart = () => {
-    console.log('Change event started')
   };
-
   handleChange = value => {
     this.setState({
       value: value
-    })
+    });
   };
- 
-
   handleChangeComplete = () => {
-    this.props.addSliderValue(this.state.value)
-    console.log(this.props)
-    console.log('Change event completed')
+    this.props.addSliderValue(this.state.value);
   };
   handleChangeDropDown = (val) => {
-    console.log(val)
-    this.setState({interestVal: val})
-  }
+    this.setState({interestVal: val});
+  };
   showResult = () => {
-        // eslint-disable-next-line
-        let sliderVal =  parseInt(this.props.slidedVal);
-        if (sliderVal === 0) {
-            return this.setState({alertMsgAmount: true})
-         } else {
-            this.setState({alertMsgAmount: false})
-         }
-        // eslint-disable-next-line
-        let interestVal =  parseInt ( this.state.interestVal )
-        if (!interestVal) {
-            return this.setState({alertMsgInterest: true})
-        } else {
-            this.setState({alertMsgInterest: false})
-        }
-       
-        this.setState({result: sliderVal + (interestVal * sliderVal)})
+    // eslint-disable-next-line
+    let sliderVal =  parseInt(this.props.slidedVal);
+    if (sliderVal === 0) {
+        return this.setState({alertMsgAmount: true});
+      } else {
+        this.setState({alertMsgAmount: false});
+      }
+    // eslint-disable-next-line
+    let interestVal =  parseInt ( this.state.interestVal );
+    if (!interestVal) {
+        return this.setState({alertMsgInterest: true});
+    } else {
+        this.setState({alertMsgInterest: false});
+    }
+    this.setState({result: sliderVal + (interestVal * sliderVal)});
   }
   render () {
-    const { value } = this.state
-    let alertAmount = ''
-    let alertInterest = ''
+    const { value } = this.state;
+    let alertAmount = '';
+    let alertInterest = '';
     if (this.state.alertMsgAmount) {
         alertAmount =  <div className="notification is-danger is-active">
         Please Select Amount From slider
@@ -87,7 +75,6 @@ class Sliders extends React.Component{
                       min={0}
                       max={100}
                       value={value}
-                      onChangeStart={this.handleChangeStart}
                       onChange={this.handleChange}
                       onChangeComplete={this.handleChangeComplete}
                     />
@@ -96,7 +83,7 @@ class Sliders extends React.Component{
                   {alertAmount}
                 </div>
               </div>
-              <Dropdown onSelectInterest={this.handleChangeDropDown}/>
+              <Interest onSelectInterest={this.handleChangeDropDown}/>
               {alertInterest} 
               <div className="field is-grouped">
                 <div className="control">
@@ -115,10 +102,10 @@ class Sliders extends React.Component{
     )
   }
 }
-const mapStateToProps = ({ sliderVal }) => ({ slidedVal: sliderVal.value })
+const mapStateToProps = ({ sliderVal }) => ({ slidedVal: sliderVal.value });
 const mapDispatchToProps = (dispatch) => {
   return {
     addSliderValue: bindActionCreators(addSliderValue, dispatch)
   }
 }
-export default withRedux(initStore, mapStateToProps, mapDispatchToProps)(Sliders)
+export default withRedux(initStore, mapStateToProps, mapDispatchToProps)(Sliders);
