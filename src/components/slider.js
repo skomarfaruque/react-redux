@@ -21,10 +21,10 @@ class Sliders extends React.Component{
       value: value
     });
   };
-  handleChangeComplete = () => {
+  selectAmount = () => {
     this.props.addSliderValue(this.state.value);
   };
-  handleChangeDropDown = (val) => {
+  selectInterestComponent = (val) => {
     this.setState({interestVal: val});
   };
   showResult = () => {
@@ -76,14 +76,14 @@ class Sliders extends React.Component{
                       max={100}
                       value={value}
                       onChange={this.handleChange}
-                      onChangeComplete={this.handleChangeComplete}
+                      onChangeComplete={this.selectAmount}
                     />
                     <div className='value'>Selected Amount = {this.props.slidedVal}</div>
                   </div>
                   {alertAmount}
                 </div>
               </div>
-              <Interest onSelectInterest={this.handleChangeDropDown}/>
+              <Interest onSelectInterest={this.selectInterestComponent}/>
               {alertInterest} 
               <div className="field is-grouped">
                 <div className="control">

@@ -1,21 +1,21 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux'
-import thunkMiddleware from 'redux-thunk'
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import thunkMiddleware from 'redux-thunk';
 
 
 const sliderState = {
   value: 0
-}
+};
 
 // Combined State
 export const initialState = {
   sliderVal: sliderState
-}
+};
 
 
 export const actionTypes = {
   ADD: 'ADD',
   REMOVE: 'REMOVE'
-}
+};
 
 // REDUCERS
 export const sliderReducer = (state = sliderState, action) => {
@@ -28,20 +28,19 @@ export const sliderReducer = (state = sliderState, action) => {
       const newState = Object.assign({}, state, {
         value: action.val
       })
-      return newState
+      return newState;
 
-    default: return state
+    default: return state;
   }
 }
 
-const reducer = combineReducers({sliderVal: sliderReducer})
+const reducer = combineReducers({sliderVal: sliderReducer});
 // ACTIONS
 
 export const addSliderValue = (val) => dispatch => {
-  console.log('store', val)
-  return dispatch({ type: actionTypes.ADD, val })
+  return dispatch({ type: actionTypes.ADD, val });
 }
 // eslint-disable-next-line
 export const initStore = (initialState = initialState, req) => {
-  return createStore(reducer, initialState, applyMiddleware(thunkMiddleware))
+  return createStore(reducer, initialState, applyMiddleware(thunkMiddleware));
 }
