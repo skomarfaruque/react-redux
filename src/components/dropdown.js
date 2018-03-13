@@ -8,7 +8,7 @@ export default class Dropdown extends React.Component{
       }
       componentWillMount() {
           let optionArray = []
-          for ( var i = 1; i <= 10; i ++) {
+          for ( var i = 1; i <= 100; i ++) {
               optionArray.push(i)
           }
           this.setState({optionsdata: optionArray})
