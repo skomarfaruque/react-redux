@@ -13,7 +13,6 @@ class Sliders extends React.Component{
       showAmountAlert: false
     }
   }
-  static defaultProps = {sohag: 'hello'}
 
   handleChangeStart = () => {
     console.log('Change event started')
