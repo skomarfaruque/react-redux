@@ -3,8 +3,8 @@ import Slider from 'react-rangeslider'
 import 'react-rangeslider/lib/index.css'
 import { bindActionCreators } from 'redux'
 import withRedux from 'next-redux-wrapper'
-import Dropdown from './components/dropdown'
-import {initStore, addSliderValue } from './stores'
+import Dropdown from './dropdown'
+import {initStore, addSliderValue } from '../stores'
 class Sliders extends React.Component{
   constructor (props, context) {
     super(props, context)
