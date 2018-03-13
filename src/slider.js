@@ -10,7 +10,11 @@ class Sliders extends React.Component{
     super(props, context)
     this.state = {
       value: 0,
-      showAmountAlert: false
+      showAmountAlert: false,
+      interestVal: 0,
+      result: 0,
+      alertMsgAmount: false,
+      alertMsgInterest: false,
     }
   }
 
@@ -30,36 +34,80 @@ class Sliders extends React.Component{
     console.log(this.props)
     console.log('Change event completed')
   };
+  handleChangeDropDown = (val) => {
+    console.log(val)
+    this.setState({interestVal: val})
+  }
+  showResult = () => {
+        // eslint-disable-next-line
+        let sliderVal =  parseInt(this.props.slidedVal);
+        if (sliderVal === 0) {
+            return this.setState({alertMsgAmount: true})
+         } else {
+            this.setState({alertMsgAmount: false})
+         }
+        // eslint-disable-next-line
+        let interestVal =  parseInt ( this.state.interestVal )
+        if (!interestVal) {
+            return this.setState({alertMsgInterest: true})
+        } else {
+            this.setState({alertMsgInterest: false})
+        }
+       
+        this.setState({result: sliderVal + (interestVal * sliderVal)})
+  }
   render () {
     const { value } = this.state
-    const def = this.props.sohag
-    
+    let alertAmount = ''
+    let alertInterest = ''
+    if (this.state.alertMsgAmount) {
+        alertAmount =  <div className="notification is-danger is-active">
+        Please Select Amount From slider
+        </div>
+    }
+    if (this.state.alertMsgInterest) {
+        alertInterest =  <div className="notification is-danger is-active">
+        Please select interest
+        </div>
+    }
     return (
       <span>
         <div className="box has-text-centered">
           Simple React js Project Using Redux and Bulma css
         </div>
+       
         <div className="columns">
           <div className="column is-6 is-offset-3">
-          <div className="box">
-          <div className="field">
-            <label className="label">Select Amount</label>
-            <div className="control">
-              <div className='slider'>
-                <Slider
-                min={0}
-                max={100}
-                value={value}
-                onChangeStart={this.handleChangeStart}
-                  onChange={this.handleChange}
-                  onChangeComplete={this.handleChangeComplete}
-                />
-              <div className='value'>Selected Amount = {this.props.slidedVal}</div>
+            <div className="box">
+              <div className="field">
+                <label className="label">Amount</label>
+                <div className="control">
+                  <div className='slider'>
+                    <Slider
+                      min={0}
+                      max={100}
+                      value={value}
+                      onChangeStart={this.handleChangeStart}
+                      onChange={this.handleChange}
+                      onChangeComplete={this.handleChangeComplete}
+                    />
+                    <div className='value'>Selected Amount = {this.props.slidedVal}</div>
+                  </div>
+                  {alertAmount}
+                </div>
+              </div>
+              <Dropdown onSelectInterest={this.handleChangeDropDown}/>
+              {alertInterest} 
+              <div className="field is-grouped">
+                <div className="control">
+                    <button className="button is-link"  onClick={this.showResult}>Submit</button>
+                </div>
+              </div>
+              <div className="field">
+                  <label className="label">Result = {this.state.result} </label>
+                  <label className="label"></label>
+              </div>
             </div>
-          </div>
-          <Dropdown sliderValue={this.props.slidedVal}/>
-        </div>
-        </div>
           </div>
         </div>
         
