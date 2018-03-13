@@ -1,10 +1,8 @@
 import React from 'react';
 import Slider from 'react-rangeslider';
 import 'react-rangeslider/lib/index.css';
-import { bindActionCreators } from 'redux';
-import withRedux from 'next-redux-wrapper';
+import { connect } from 'react-redux'
 import Interest from './Interest';
-import {initStore, addSliderValue } from '../stores';
 class Sliders extends React.Component{
   constructor (props, context) {
     super(props, context)
@@ -22,7 +20,8 @@ class Sliders extends React.Component{
     });
   };
   selectAmount = () => {
-    this.props.addSliderValue(this.state.value);
+    // this.props.addSliderValue(this.state.value);
+    this.props.addSliderValue(this.state.value)
   };
   selectInterestComponent = (val) => {
     this.setState({interestVal: val});
@@ -102,10 +101,12 @@ class Sliders extends React.Component{
     )
   }
 }
-const mapStateToProps = ({ sliderVal }) => ({ slidedVal: sliderVal.value });
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addSliderValue: bindActionCreators(addSliderValue, dispatch)
-  }
-}
-export default withRedux(initStore, mapStateToProps, mapDispatchToProps)(Sliders);
+const mapStateToProps = state => ({
+  slidedVal: state.amountReducer.value
+})
+
+const mapDispatchToProps = dispatch => ({
+  addSliderValue: (value) => dispatch({ type: 'storeAmount', value }),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sliders);
