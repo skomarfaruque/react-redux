@@ -1,5 +1,5 @@
 import React from 'react';
-import Slider from 'react-rangeslider';
+import RangeSlider from 'react-rangeslider';
 import 'react-rangeslider/lib/index.css';
 import { connect } from 'react-redux'
 import Interest from './Interest';
@@ -58,7 +58,7 @@ class Sliders extends React.Component{
         </div>
     }
     return (
-      <span>
+      <div>
         <div className="box has-text-centered">
           Simple React js Project Using Redux and Bulma css
         </div>
@@ -70,7 +70,7 @@ class Sliders extends React.Component{
                 <label className="label">Amount</label>
                 <div className="control">
                   <div className='slider'>
-                    <Slider
+                    <RangeSlider
                       min={0}
                       max={100}
                       value={value}
@@ -86,7 +86,7 @@ class Sliders extends React.Component{
               {alertInterest} 
               <div className="field is-grouped">
                 <div className="control">
-                    <button className="button is-link"  onClick={this.showResult}>Submit</button>
+                    <button className="button is-link show-result"  onClick={this.showResult}>Submit</button>
                 </div>
               </div>
               <div className="field">
@@ -97,7 +97,7 @@ class Sliders extends React.Component{
           </div>
         </div>
         
-      </span>
+      </div>
     )
   }
 }
