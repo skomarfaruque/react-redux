@@ -1,6 +1,6 @@
-import { createStore, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
-import reducer from '../reducers'
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import reducer from '../reducers';
 
 
 export default function configureStore(initialAmountState) {
@@ -9,5 +9,5 @@ export default function configureStore(initialAmountState) {
     initialAmountState,
     applyMiddleware(thunk),
   )
-  return store
+  return store;
 }

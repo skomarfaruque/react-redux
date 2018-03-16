@@ -4,38 +4,43 @@ import 'react-rangeslider/lib/index.css';
 import { connect } from 'react-redux'
 import Interest from './Interest';
 class Sliders extends React.Component{
-  constructor (props, context) {
-    super(props, context)
+  constructor (props) {
+    super(props);
     this.state = {
       value: 0,
       interestVal: 0,
       result: 0,
       alertMsgAmount: false,
       alertMsgInterest: false
+    };
+  }
+  selectAmount = (value) => {
+    this.props.addSliderValue(this.state.value);
+    this.setState({value: value});
+    if (value) {
+      this.setState({alertMsgAmount: false});
+    } else {
+      this.setState({alertMsgAmount: true});
     }
-  };
-  handleChange = value => {
-    this.setState({
-      value: value
-    });
-  };
-  selectAmount = () => {
-    // this.props.addSliderValue(this.state.value);
-    this.props.addSliderValue(this.state.value)
-  };
-  selectInterestComponent = (val) => {
-    this.setState({interestVal: val});
-  };
+  }
+  selectInterestComponent = (value) => {
+    this.setState({interestVal: value});
+    if (value) {
+      this.setState({alertMsgInterest: false});
+    } else {
+      this.setState({alertMsgInterest: true});
+    }
+  }
   showResult = () => {
     // eslint-disable-next-line
     let sliderVal =  parseInt(this.props.slidedVal);
-    if (sliderVal === 0) {
+    if (!sliderVal) {
         return this.setState({alertMsgAmount: true});
       } else {
         this.setState({alertMsgAmount: false});
       }
     // eslint-disable-next-line
-    let interestVal =  parseInt ( this.state.interestVal );
+    let interestVal =  parseInt (this.state.interestVal);
     if (!interestVal) {
         return this.setState({alertMsgInterest: true});
     } else {
@@ -74,8 +79,7 @@ class Sliders extends React.Component{
                       min={0}
                       max={100}
                       value={value}
-                      onChange={this.handleChange}
-                      onChangeComplete={this.selectAmount}
+                      onChange={this.selectAmount}
                     />
                     <div className='value'>Selected Amount = {this.props.slidedVal}</div>
                   </div>
@@ -86,7 +90,7 @@ class Sliders extends React.Component{
               {alertInterest} 
               <div className="field is-grouped">
                 <div className="control">
-                    <button className="button is-link show-result"  onClick={this.showResult}>Submit</button>
+                    <button className="button is-link show-result" disabled={this.state.alertMsgAmount || this.state.alertMsgInterest}  onClick={this.showResult}>Submit</button>
                 </div>
               </div>
               <div className="field">
